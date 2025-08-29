@@ -9,7 +9,7 @@ const postsRouter = require('./routers/postsRouter')
 const app = express();
 app.use(cors({
   origin: ['http://localhost:4200',
-  'https://your-angular-app.web.app'],// ✅ frontend URL
+  'https://auth-project-kmt6.onrender.com'],// ✅ frontend URL
   credentials: true                 // ✅ allow cookies
 }));
 app.use(helmet());
