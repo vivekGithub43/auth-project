@@ -8,7 +8,8 @@ const authRouter = require('./routers/authRouter')
 const postsRouter = require('./routers/postsRouter')
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:4200',  // ✅ frontend URL
+  origin: ['http://localhost:4200',
+  'https://your-angular-app.web.app'],// ✅ frontend URL
   credentials: true                 // ✅ allow cookies
 }));
 app.use(helmet());
