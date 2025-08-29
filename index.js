@@ -13,12 +13,10 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: function(origin, callback){
-    // allow requests with no origin (like Postman)
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
-      return callback(new Error(msg), false);
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('Not allowed by CORS'), false);
     }
     return callback(null, true);
   },
@@ -26,6 +24,10 @@ app.use(cors({
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization']
 }));
+
+// Preflight requests
+app.options('*', cors());
+
 
 app.use(helmet());
 app.use(cookieParser());
