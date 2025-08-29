@@ -8,7 +8,9 @@ const authRouter = require('./routers/authRouter')
 const postsRouter = require('./routers/postsRouter')
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:4200'], // only local frontend for now
+  origin: ['http://localhost:4200',
+    'https://vivek-auth-store.web.app'
+  ], // only local frontend for now
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
