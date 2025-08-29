@@ -7,15 +7,26 @@ const mongoose = require ('mongoose');
 const authRouter = require('./routers/authRouter')
 const postsRouter = require('./routers/postsRouter')
 const app = express();
+const allowedOrigins = [
+  'http://localhost:4200',
+  'https://vivek-auth-store.web.app'
+];
+
 app.use(cors({
-  origin: ['http://localhost:4200',
-    'https://vivek-auth-store.web.app'
-  ], // only local frontend for now
+  origin: function(origin, callback){
+    // allow requests with no origin (like Postman)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-               // ✅ allow cookies
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
 }));
+
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
