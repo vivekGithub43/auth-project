@@ -7,26 +7,14 @@ const mongoose = require ('mongoose');
 const authRouter = require('./routers/authRouter')
 const postsRouter = require('./routers/postsRouter')
 const app = express();
-const allowedOrigins = [
-  'http://localhost:4200',
-  'https://vivek-auth-store.web.app'
-];
 
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin) return callback(null, true); // allows non-browser requests (like Postman)
-    if (allowedOrigins.indexOf(origin) === -1) {
-      return callback(new Error('Not allowed by CORS'), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true,
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
+  origin: ['https://vivek-auth-store.web.app',
+  ], // your Firebase frontend URL
+  credentials: true
 }));
 
-// Preflight requests
-app.options('*', cors());
+
 
 
 app.use(helmet());
